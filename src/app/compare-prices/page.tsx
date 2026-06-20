@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatPrice, formatDate } from "@/utils/formatters";
@@ -100,10 +100,10 @@ const mockCompareResult = {
 };
 
 // ============================================
-// MAIN PAGE
+// MAIN COMPONENT WITH SUSPENSE
 // ============================================
 
-export default function ComparePricesPage() {
+function ComparePricesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const flightId = searchParams.get("flightId");
@@ -150,21 +150,15 @@ export default function ComparePricesPage() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 py-6">
       <div className="max-w-6xl mx-auto px-4">
         
-        {/* ===== HEADER ===== */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-wrap items-center justify-between gap-4 mb-6"
-        >
+        {/* HEADER */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: -10 }}
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={() => router.push("/flight-results")}
               className="p-2 hover:bg-white/50 rounded-full transition-all backdrop-blur-sm"
             >
               <ArrowLeftIcon className="w-6 h-6 text-gray-600" />
-            </motion.button>
+            </button>
             <div>
               <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
                 <ChartBarIcon className="w-6 h-6 text-[#6C63FF]" />
@@ -188,15 +182,10 @@ export default function ComparePricesPage() {
               <HeartIcon className={`w-5 h-5 ${isLiked ? "fill-rose-500 text-rose-500" : "text-gray-400"}`} />
             </Button>
           </div>
-        </motion.div>
+        </div>
 
-        {/* ===== FLIGHT INFO ===== */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="glass-card p-6 mb-6"
-        >
+        {/* FLIGHT INFO */}
+        <div className="glass-card p-6 mb-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-[#6C63FF] to-[#00D2FF] rounded-xl flex items-center justify-center text-white font-bold">
@@ -220,9 +209,9 @@ export default function ComparePricesPage() {
               <div className="font-semibold text-gray-800">{flightData.duration}</div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* ===== TABS ===== */}
+        {/* TABS */}
         <div className="flex gap-2 mb-6 bg-white/50 backdrop-blur-sm rounded-2xl p-1 border border-white/50 max-w-xs">
           <button
             onClick={() => setSelectedTab("compare")}
@@ -246,7 +235,7 @@ export default function ComparePricesPage() {
           </button>
         </div>
 
-        {/* ===== LOADING STATE ===== */}
+        {/* LOADING STATE */}
         <AnimatePresence>
           {isLoading && (
             <motion.div
@@ -280,7 +269,7 @@ export default function ComparePricesPage() {
           )}
         </AnimatePresence>
 
-        {/* ===== RESULTS ===== */}
+        {/* RESULTS */}
         <AnimatePresence>
           {!isLoading && comparisonResult && selectedTab === "compare" && (
             <motion.div
@@ -288,7 +277,7 @@ export default function ComparePricesPage() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
             >
-              {/* ===== COMPARISON RESULT CARD ===== */}
+              {/* COMPARISON RESULT CARD */}
               <motion.div
                 initial={{ scale: 0.95 }}
                 animate={{ scale: 1 }}
@@ -326,7 +315,7 @@ export default function ComparePricesPage() {
                     آخرین به‌روزرسانی: {new Date(comparisonResult.lastUpdated).toLocaleTimeString("fa-IR")}
                   </div>
 
-                  {/* ===== PRICE BARS ===== */}
+                  {/* PRICE BARS */}
                   <div className="max-w-2xl mx-auto mt-6">
                     <div className="flex items-center gap-4">
                       <span className="text-sm text-gray-500 w-20 text-right">trip.com</span>
@@ -354,7 +343,7 @@ export default function ComparePricesPage() {
                     </div>
                   </div>
 
-                  {/* ===== SAVINGS BADGE ===== */}
+                  {/* SAVINGS BADGE */}
                   <motion.div
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -375,7 +364,7 @@ export default function ComparePricesPage() {
                 </div>
               </motion.div>
 
-              {/* ===== PRICE CARDS ===== */}
+              {/* PRICE CARDS */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* International */}
                 <motion.div
@@ -514,7 +503,7 @@ export default function ComparePricesPage() {
                 </motion.div>
               </div>
 
-              {/* ===== SAVINGS COMPARISON ===== */}
+              {/* SAVINGS COMPARISON */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -551,7 +540,7 @@ export default function ComparePricesPage() {
                 </div>
               </motion.div>
 
-              {/* ===== ACTION BUTTONS ===== */}
+              {/* ACTION BUTTONS */}
               <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
                 <Button variant="outline" onClick={() => router.push("/flight-results")}>
                   بازگشت به نتایج
@@ -578,7 +567,7 @@ export default function ComparePricesPage() {
           )}
         </AnimatePresence>
 
-        {/* ===== DETAILS TAB ===== */}
+        {/* DETAILS TAB */}
         <AnimatePresence>
           {!isLoading && comparisonResult && selectedTab === "details" && (
             <motion.div
@@ -620,7 +609,7 @@ export default function ComparePricesPage() {
           )}
         </AnimatePresence>
 
-        {/* ===== FOOTER ===== */}
+        {/* FOOTER */}
         <div className="text-center text-xs text-gray-400 mt-8 pt-4 border-t border-gray-200/50">
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <span className="flex items-center gap-1.5">
@@ -640,5 +629,24 @@ export default function ComparePricesPage() {
 
       </div>
     </div>
+  );
+}
+
+// ============================================
+// MAIN EXPORT WITH SUSPENSE
+// ============================================
+
+export default function ComparePricesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-[#6C63FF]/20 border-t-[#6C63FF] rounded-full animate-spin" />
+          <p className="text-gray-500">در حال بارگذاری...</p>
+        </div>
+      </div>
+    }>
+      <ComparePricesContent />
+    </Suspense>
   );
 }

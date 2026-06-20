@@ -1,22 +1,25 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig = {
-  output: 'export',
+  output: "export",
   reactStrictMode: true,
+
   images: {
     unoptimized: true,
-    domains: ["localhost", "trip.com"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-    ],
   },
-  basePath: '/flight-ticket-project',
-  assetPrefix: '/flight-ticket-project/',
+
+  trailingSlash: true,
+
+  basePath: isProd ? "/flight-ticket-project" : "",
+  assetPrefix: isProd ? "/flight-ticket-project/" : "",
+
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
-    NEXT_PUBLIC_WEBSOCKET_URL: process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://localhost:3001",
+    NEXT_PUBLIC_API_URL:
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
+
+    NEXT_PUBLIC_WEBSOCKET_URL:
+      process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://localhost:3001",
   },
 };
 

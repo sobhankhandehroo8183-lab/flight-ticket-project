@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "export": "next export",
-    "deploy": "npm run build && npx gh-pages -d out",
-    "deploy:clean": "npm run build && npx gh-pages -d out --clean"
+    "deploy": "npm run build && npx gh-pages -d out"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
@@ -46,7 +44,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
     "eslint-config-prettier": "^9.1.0",
-    "gh-pages": "^6.1.1",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.15",
     "prettier": "^3.1.0",
     "tailwindcss": "^3.4.19",
