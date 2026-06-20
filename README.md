@@ -29,7 +29,7 @@
 
 ## 👨‍💻 توسعه‌دهنده
 
-**سوبحان خنده‌رو** (Sobhan Khandehroo)
+**سبحان خنده‌رو** (Sobhan Khandehroo)
 
 - 📧 ایمیل: sobhankhandehroo8183@gmail.com
 - 🐙 گیت‌هاب: [@sobhankhandehroo8183-lab](https://github.com/sobhankhandehroo8183-lab)
