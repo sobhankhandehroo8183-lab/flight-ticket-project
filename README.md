@@ -56,4 +56,4 @@ cd flight-ticket-project
 npm install
 
 # اجرا در حالت توسعه
-npm run dev
+npm run dev"" 
